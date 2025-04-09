@@ -41,6 +41,12 @@ RUN --mount=${mountArgs} \
         ['tar', ['-H', 'posix', '-x', '-C', scratchDir]]
     );
 
+    fs.readdir(scratchDir, (err, files) => {
+      files.forEach(file => {
+        console.log(file);
+      });
+    });
+
     // Move Cache into Its Place
     await run('sudo', ['rm', '-rf', cacheSource]);
     await fs.rename(path.join(scratchDir, 'dance-cache'), cacheSource);
